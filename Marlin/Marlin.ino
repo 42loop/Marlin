@@ -1,6 +1,10 @@
 /* -*- c++ -*- */
 
 /*
+
+GIT version 
+last commit: https://github.com/ErikZalm/Marlin/commit/bc27d809fb4232abd33c85f33ec2bb78d7ce3444
+
     Reprap firmware based on Sprinter and grbl.
  Copyright (C) 2011 Camiel Gubbels / Erik van der Zalm
  
@@ -26,6 +30,9 @@
  It has preliminary support for Matthew Roberts advance algorithm 
     http://reprap.org/pipermail/reprap-dev/2011-May/003323.html
  */
+
+
+
 
 #include "Marlin.h"
 
@@ -95,6 +102,9 @@
 // M92  - Set axis_steps_per_unit - same syntax as G92
 // M114 - Output current position to serial port 
 // M115	- Capabilities string
+
+// M116 - Printer ID
+
 // M117 - display message
 // M119 - Output Endstop status to serial port
 // M140 - Set bed target temp
@@ -133,6 +143,44 @@
 //===========================================================================
 //=============================public variables=============================
 //===========================================================================
+
+#ifdef KEYPAD
+#include <Keypad.h>
+
+const byte rows = 4; //four rows
+const byte cols = 4; //five columns
+/*char keys[rows][cols] = {
+  {'*','I','3','6'},
+  {'*','*','2','5'},
+  {'S','*','1','4'},
+  {'7','8','9','0'}
+};
+*/
+char keys[rows][cols] = {
+{'3','2','1','9'},
+{'6','5','4','8'},
+{'I','*','*','7'},
+{'*','*','S','0'}};
+/*{'7','S','*','*'},
+{'8','*','*','I'},
+{'9','1','2','3'},
+{'0','4','5','6'}};
+*/
+
+
+
+byte rowPins[rows] = {KEY_R1,KEY_R2,KEY_R3,KEY_R4}; //connect to the row pinouts of the keypad
+byte colPins[cols] = {KEY_C1,KEY_C2,KEY_C3,KEY_C4}; //connect to the column pinouts of the keypad
+Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, rows, cols );
+
+
+
+boolean tset=false;
+char selax='N';
+
+#endif
+
+
 #ifdef SDSUPPORT
 CardReader card;
 #endif
@@ -338,6 +386,11 @@ void setup()
   setup_photpin();
   
   LCD_INIT;
+#ifdef KEYPAD
+keypad.setDebounceTime(500);
+#endif
+
+beep();
 }
 
 
@@ -1200,6 +1253,9 @@ void process_commands()
     case 115: // M115
       SerialprintPGM(MSG_M115_REPORT);
       break;
+    case 116: // M116
+      SerialprintPGM(PRINTER_ID);
+      break;
     case 117: // M117 display message
       LCD_MESSAGE(cmdbuffer[bufindr]+5);
       break;
@@ -1733,6 +1789,115 @@ void manage_inactivity()
      WRITE(E0_ENABLE_PIN,oldstatus);
     }
   #endif
+  
+#ifdef KEYPAD  
+    //check keypad
+char key = keypad.getKey();
+
+  if (key != NO_KEY){
+ MSerial.print("key: ");MSerial.println(key);
+    if (key == '1') 
+   {MSerial.println("+1/+1");
+                 enquecommand("G91\0");
+                 
+ if (selax=='X') enquecommand("G1 X1 F4940\0");
+ if (selax=='Y') enquecommand("G1 Y1 F4940\0");
+ if (selax=='Z') enquecommand("G1 Z1 F200\0");
+ if (selax=='E') enquecommand("G1 E1 F200 \0");
+                 enquecommand("G90\0");
+    }
+    
+        if (key == '2') 
+    {MSerial.println("+10/+5");
+                 enquecommand("G91\0");
+ if (selax=='X') enquecommand("G1 X10 F4940\0");
+ if (selax=='Y') enquecommand("G1 Y10 F4940\0");
+ if (selax=='Z') enquecommand("G1 Z10 F200\0");
+ if (selax=='E') enquecommand("G1 E5 F200  \0");
+                 enquecommand("G90\0");
+
+    }
+    if (key == '3') {
+      MSerial.println("+100/+10");
+    enquecommand("G91\0");
+ if (selax=='X') enquecommand("G1 X100 F4940\0");
+ if (selax=='Y') enquecommand("G1 Y100 F4940\0");
+ if (selax=='Z') enquecommand("G1 Z50 F200\0");
+ if (selax=='E') enquecommand("G1 E10 F200\0");
+                 enquecommand("G90\0");
+
+    }      
+    if (key == '4') {
+      MSerial.println("-1/-1");
+                 enquecommand("G91\0");
+ if (selax=='X') enquecommand("G1 X-1 F4940\0");
+ if (selax=='Y') enquecommand("G1 Y-1 F4940\0");
+ if (selax=='Z') enquecommand("G1 Z-1 F200\0");
+ if (selax=='E') enquecommand("G1 E-1 F200\0");
+                 enquecommand("G90\0");
+
+    }
+    
+    
+    if (key == '5'){
+      MSerial.println("-10/-5");
+                 enquecommand("G91\0");
+ if (selax=='X') enquecommand("G1 X-10 F4940\0");
+ if (selax=='Y') enquecommand("G1 Y-10 F4940\0");
+ if (selax=='Z') enquecommand("G1 Z-10 F200\0");
+ if (selax=='E') enquecommand("G1 E-5 F200\0");
+                 enquecommand("G90\0");
+    }
+ if (key == '6') {
+   MSerial.println("-100/-10");
+       enquecommand("G91\0");
+ if (selax=='X') enquecommand("G1 X-100 F4940\0");
+ if (selax=='Y') enquecommand("G1 Y-100 F4940\0");
+ if (selax=='Z') enquecommand("G1 Z-100 F200\0");
+ if (selax=='E') enquecommand("G1 E-10 F200\0");
+                 enquecommand("G90\0");
+    }
+
+    
+    if (key == '7') {MSerial.println("X selected");selax='X';lcd.setCursor(19, 3);lcd.print("X");}
+
+    if (key == '8') {MSerial.println("Y selected");selax='Y';lcd.setCursor(19,3);lcd.print("Y");}
+    if (key == '9') {MSerial.println("Z selected");selax='Z';lcd.setCursor(19,3);lcd.print("Z");}
+    if (key == '0') {MSerial.println("E selected");selax='E';lcd.setCursor(19,3);lcd.print("E");}
+
+    if (key == 'C') {
+      MSerial.println("home all");
+      enquecommand("G28\0");
+      enquecommand("G92 X190\0"); 
+    }
+
+    if (key == 'S') 
+    {MSerial.println("S");
+    tset=!tset;
+    if (tset) 
+    {enquecommand("M104 S230\0");
+    enquecommand("M140 S60\0");
+    }
+    else 
+    {enquecommand("M104 S000\0");
+    enquecommand("M140 S000\0");
+    }
+  }
+  
+  if (key=='I')
+  {MSerial.println("I");
+  
+enquecommand("G91\0");
+enquecommand("G1 Z10.0 F200\0");
+enquecommand("G1 Y100.0 F4937\0");
+enquecommand("G90\0");
+  }
+  }
+  
+#endif
+  
+  
+  
   check_axes_activity();
 }
 
