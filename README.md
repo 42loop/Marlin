@@ -1,3 +1,7 @@
+This is the Marlin Fork for the 'fab@hfbk' Project,
+forked on 6th of Nov. 2012
+#################################
+
 WARNING: 
 --------
 THIS IS RELEASE CANDIDATE 2 FOR MARLIN 1.0.0
