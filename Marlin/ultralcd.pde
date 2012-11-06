@@ -366,11 +366,11 @@ void MainMenu::showStatus()
   {
     encoderpos=feedmultiply;
     clear();
-    lcd.setCursor(0,0);lcdprintPGM("\002---/---\001 ");
+    lcd.setCursor(0,0);lcdprintPGM("\002000/000\001 ");
     #if defined BED_USES_THERMISTOR || defined BED_USES_AD595 
-      lcd.setCursor(10,0);lcdprintPGM("B---/---\001 ");
+      lcd.setCursor(10,0);lcdprintPGM("B000/000\001 ");
     #elif EXTRUDERS > 1
-      lcd.setCursor(10,0);lcdprintPGM("\002---/---\001 ");
+      lcd.setCursor(10,0);lcdprintPGM("\002000/000\001 ");
     #endif
   }
     
@@ -1857,7 +1857,7 @@ void MainMenu::showControlMotion()
       if(force_lcd_update)
         {
           lcd.setCursor(0,line);lcdprintPGM(MSG_ZSTEPS);
-          lcd.setCursor(11,line);lcd.print(ftostr52(axis_steps_per_unit[Z_AXIS]));
+          lcd.setCursor(11,line);lcd.print(ftostr51(axis_steps_per_unit[Z_AXIS]));
         }
         
         if((activeline!=line) )
@@ -1896,7 +1896,7 @@ void MainMenu::showControlMotion()
       if(force_lcd_update)
         {
           lcd.setCursor(0,line);lcdprintPGM(MSG_ESTEPS);
-          lcd.setCursor(11,line);lcd.print(ftostr52(axis_steps_per_unit[E_AXIS]));
+          lcd.setCursor(11,line);lcd.print(ftostr51(axis_steps_per_unit[E_AXIS]));
         }
         
         if((activeline!=line) )
