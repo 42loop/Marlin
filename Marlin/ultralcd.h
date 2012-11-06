@@ -2,12 +2,7 @@
 #define ULTRALCD_H
 #include "Marlin.h"
 #ifdef ULTRA_LCD
-#include "language.h"
-#if LANGUAGE_CHOICE == 6
-#include "LiquidCrystalRus.h"
-#else
-#include <LiquidCrystal.h>
-#endif
+  #include <LiquidCrystal.h>
   void lcd_status();
   void lcd_init();
   void lcd_status(const char* message);
@@ -17,11 +12,7 @@
 
   #define LCD_UPDATE_INTERVAL 100
   #define STATUSTIMEOUT 15000
-#if LANGUAGE_CHOICE == 6
-  extern LiquidCrystalRus lcd;
-#else
   extern LiquidCrystal lcd;
-#endif
   extern volatile char buttons;  //the last checked buttons in a bit array.
   
   #ifdef NEWPANEL
@@ -62,7 +53,7 @@
   #define blocktime 500
   #define lcdslow 5
     
-  enum MainStatus{Main_Status, Main_Menu, Main_Prepare,Sub_PrepareMove, Main_Control, Main_SD,Sub_TempControl,Sub_MotionControl,Sub_RetractControl, Sub_PreheatPLASettings, Sub_PreheatABSSettings};
+  enum MainStatus{Main_Status, Main_Menu, Main_Prepare,ZOFFSET, Sub_PrepareMove, Main_Control, Main_SD,Sub_TempControl,Sub_MotionControl,Sub_RetractControl, Sub_PreheatPLASettings, Sub_PreheatABSSettings};
 
   class MainMenu{
   public:
@@ -75,6 +66,8 @@
     void showStatus();
     void showMainMenu();
     void showPrepare();
+    void showZoffset();
+    
     void showTune();
     void showControl();
     void showControlMotion();

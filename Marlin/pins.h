@@ -245,8 +245,12 @@
  #endif
 #endif
 
+///////////////////////////////////////////////////////
+//CONFIG FOR HFBK MENDEL90 STARTS HERE
+//////////////////////////////////////////////////////
+
 // uncomment one of the following lines for RAMPS v1.3 or v1.0, comment both for v1.2 or 1.1
-// #define RAMPS_V_1_3
+#define RAMPS_V_1_3
 // #define RAMPS_V_1_0
 
 #if MOTHERBOARD == 33 || MOTHERBOARD == 34
@@ -255,19 +259,19 @@
 #define X_DIR_PIN          55
 #define X_ENABLE_PIN       38
 #define X_MIN_PIN           3
-#define X_MAX_PIN           2   //2 //Max endstops default to disabled "-1", set to commented value to enable.
+#define X_MAX_PIN           -1   //2 //Max endstops default to disabled "-1", set to commented value to enable.
 
 #define Y_STEP_PIN         60
 #define Y_DIR_PIN          61
 #define Y_ENABLE_PIN       56
 #define Y_MIN_PIN          14
-#define Y_MAX_PIN          15   //15
+#define Y_MAX_PIN          -1   //15
 
 #define Z_STEP_PIN         46
 #define Z_DIR_PIN          48
 #define Z_ENABLE_PIN       62
 #define Z_MIN_PIN          18
-#define Z_MAX_PIN          19
+#define Z_MAX_PIN          -1
 
 #define Z2_STEP_PIN        36
 #define Z2_DIR_PIN         34
@@ -310,7 +314,7 @@
 
   #ifdef NEWPANEL
   //arduino pin which triggers an piezzo beeper
-    #define BEEPER 33			// Beeper on AUX-4
+    #define BEEPER 58     //Beeper on AUX-1   //33			// Beeper on AUX-4
 
     #define LCD_PINS_RS 16 
     #define LCD_PINS_ENABLE 17
@@ -319,10 +323,24 @@
     #define LCD_PINS_D6 27
     #define LCD_PINS_D7 29
     
+    // keypad
+    #ifdef KEYPAD
+      #define KEY_R1          31
+      #define KEY_R2          33
+      #define KEY_R3          35
+      #define KEY_R4          37
+
+      #define KEY_C1          39
+      #define KEY_C2          41
+      #define KEY_C3          43
+      #define KEY_C4          45
+    #endif
+//#define KEY_C5          47
+
     //buttons are directly attached using AUX-2
-    #define BTN_EN1 37
-    #define BTN_EN2 35
-    #define BTN_ENC 31  //the click
+    #define BTN_EN1 4
+    #define BTN_EN2 5
+    #define BTN_ENC 6  //the click
     
     #define BLEN_C 2
     #define BLEN_B 1
