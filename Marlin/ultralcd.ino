@@ -6,7 +6,11 @@
 #include "language.h"
 #include "temperature.h"
 #include "EEPROMwrite.h"
+#if LANGUAGE_CHOICE == 6
+#include "LiquidCrystalRus.h"
+#else
 #include <LiquidCrystal.h>
+#endif
 //===========================================================================
 //=============================imported variables============================
 //===========================================================================
@@ -38,7 +42,11 @@ static char messagetext[LCD_WIDTH]="";
 //return for string conversion routines
 static char conv[8];
 
+#if LANGUAGE_CHOICE == 6
+LiquidCrystalRus lcd(LCD_PINS_RS, LCD_PINS_ENABLE, LCD_PINS_D4, LCD_PINS_D5,LCD_PINS_D6,LCD_PINS_D7);  //RS,Enable,D4,D5,D6,D7
+#else
 LiquidCrystal lcd(LCD_PINS_RS, LCD_PINS_ENABLE, LCD_PINS_D4, LCD_PINS_D5,LCD_PINS_D6,LCD_PINS_D7);  //RS,Enable,D4,D5,D6,D7 
+#endif
 
 static unsigned long previous_millis_lcd=0;
 //static long previous_millis_buttons=0;
@@ -358,11 +366,11 @@ void MainMenu::showStatus()
   {
     encoderpos=feedmultiply;
     clear();
-    lcd.setCursor(0,0);lcdprintPGM("\002---/---\001 ");
+    lcd.setCursor(0,0);lcdprintPGM("\002000/000\001 ");
     #if defined BED_USES_THERMISTOR || defined BED_USES_AD595 
-      lcd.setCursor(10,0);lcdprintPGM("B---/---\001 ");
+      lcd.setCursor(10,0);lcdprintPGM("B000/000\001 ");
     #elif EXTRUDERS > 1
-      lcd.setCursor(10,0);lcdprintPGM("\002---/---\001 ");
+      lcd.setCursor(10,0);lcdprintPGM("\002000/000\001 ");
     #endif
   }
     
@@ -522,7 +530,7 @@ void MainMenu::showStatus()
   force_lcd_update=false;
 }
 
-enum {ItemP_exit, ItemP_autostart, ItemP_zoffset,ItemP_disstep,ItemP_home, ItemP_origin, ItemP_preheat_pla, ItemP_preheat_abs, ItemP_cooldown,/*ItemP_extrude,*/ItemP_move};
+enum {ItemP_exit, ItemP_autostart,ItemP_disstep,ItemP_home, ItemP_origin, ItemP_preheat_pla, ItemP_preheat_abs, ItemP_cooldown,/*ItemP_extrude,*/ItemP_move};
 
 //any action must not contain a ',' character anywhere, or this breaks:
 #define MENUITEM(repaint_action, click_action) \
@@ -544,11 +552,6 @@ void MainMenu::showPrepare()
     case ItemP_exit:
       MENUITEM(  lcdprintPGM(MSG_MAIN)  ,  BLOCK;status=Main_Menu;beepshort(); ) ;
       break;
-    case ItemP_zoffset:
-      MENUITEM(  lcdprintPGM(MSG_ZOFFSET)  ,  BLOCK;status=ZOFFSET;beepshort(); ) ;
-      break;
-    
-      
     case ItemP_autostart:
       MENUITEM(  lcdprintPGM(MSG_AUTOSTART)  ,  BLOCK;
 #ifdef SDSUPPORT
@@ -1499,59 +1502,6 @@ enum {
   ItemCM_aret, ItemCM_xsteps,ItemCM_ysteps, ItemCM_zsteps, ItemCM_esteps
 };
 
-void MainMenu::showZoffset()
-{   int oldencoderpos=0;
-int line=0;
-          
- clearIfNecessary();
-
-MENUITEM(  lcdprintPGM(MSG_PREPARE_ALT)  ,  BLOCK;status=Main_Prepare;beepshort(); ) ;
-
-line++;
- if(force_lcd_update)
-                  {
-                    lcd.setCursor(0,line);lcdprintPGM(" Z Offset:");
-                    lcd.setCursor(11,line);lcd.print(ftostr52(add_homeing[Z_AXIS]));
-                  }
-      
-                  
-                  
-                  if(CLICKED) 
-                  {
-                    linechanging=!linechanging;
-                    if(linechanging)
-                    {
-//			enquecommand("G91");
-                    }
-                    else
-                    {
-//		      enquecommand("G90");
-                      encoderpos=activeline*lcdslow;
-                      beepshort();
-                    }
-                    BLOCK;
-                  }
-                  if(linechanging)
-                  {
-                    if (encoderpos >0) 
-                   { 
-//		    	enquecommand("G1 F700 X0.1");
-add_homeing[Z_AXIS]+=0.05;
-			oldencoderpos=encoderpos;
-                        encoderpos=0;
-		    }
-		  
-		    else if (encoderpos < 0)
-                    {
-//		    	enquecommand("G1 F700 X-0.1");
-add_homeing[Z_AXIS]-=0.05;
-			oldencoderpos=encoderpos;
-                        encoderpos=0;
-		    }
-                    lcd.setCursor(11,0);lcd.print(ftostr52(add_homeing[Z_AXIS]));
-                  }
-          }
-
 
 
 void MainMenu::showControlMotion()
@@ -1907,7 +1857,7 @@ void MainMenu::showControlMotion()
       if(force_lcd_update)
         {
           lcd.setCursor(0,line);lcdprintPGM(MSG_ZSTEPS);
-          lcd.setCursor(11,line);lcd.print(ftostr52(axis_steps_per_unit[Z_AXIS]));
+          lcd.setCursor(11,line);lcd.print(ftostr51(axis_steps_per_unit[Z_AXIS]));
         }
         
         if((activeline!=line) )
@@ -1946,7 +1896,7 @@ void MainMenu::showControlMotion()
       if(force_lcd_update)
         {
           lcd.setCursor(0,line);lcdprintPGM(MSG_ESTEPS);
-          lcd.setCursor(11,line);lcd.print(ftostr52(axis_steps_per_unit[E_AXIS]));
+          lcd.setCursor(11,line);lcd.print(ftostr51(axis_steps_per_unit[E_AXIS]));
         }
         
         if((activeline!=line) )
@@ -2656,10 +2606,6 @@ void MainMenu::update()
         {
           showPrepare(); 
         }
-      }break;
-      case ZOFFSET:
-      {
-        showZoffset();
       }break;
       case Sub_PrepareMove:
       {        

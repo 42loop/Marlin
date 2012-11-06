@@ -507,8 +507,6 @@
 #define MSG_ERR_LONG_EXTRUDE_STOP " extrusion demasiado larga evitada"
 
 #endif
-<<<<<<< HEAD
-=======
 
 #if LANGUAGE_CHOICE == 6
 
@@ -826,5 +824,4 @@
 
 #endif
 
->>>>>>> Marlin_v1
 #endif // ifndef LANGUAGE_H
