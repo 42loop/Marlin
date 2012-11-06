@@ -149,24 +149,12 @@ last commit: https://github.com/ErikZalm/Marlin/commit/bc27d809fb4232abd33c85f33
 
 const byte rows = 4; //four rows
 const byte cols = 4; //five columns
-/*char keys[rows][cols] = {
-  {'*','I','3','6'},
-  {'*','*','2','5'},
-  {'S','*','1','4'},
-  {'7','8','9','0'}
-};
-*/
-char keys[rows][cols] = {
-{'3','2','1','9'},
-{'6','5','4','8'},
-{'I','*','*','7'},
-{'*','*','S','0'}};
-/*{'7','S','*','*'},
-{'8','*','*','I'},
-{'9','1','2','3'},
-{'0','4','5','6'}};
-*/
 
+char keys[rows][cols] = {
+{'3','2','1','Z'},
+{'6','5','4','Y'},
+{'I','*','*','X'},
+{'*','*','S','E'}};
 
 
 byte rowPins[rows] = {KEY_R1,KEY_R2,KEY_R3,KEY_R4}; //connect to the row pinouts of the keypad
@@ -1859,11 +1847,11 @@ char key = keypad.getKey();
     }
 
     
-    if (key == '7') {MSerial.println("X selected");selax='X';lcd.setCursor(19, 3);lcd.print("X");}
+    if (key == 'X') {MSerial.println("X selected");selax='X';lcd.setCursor(19, 3);lcd.print("X");}
 
-    if (key == '8') {MSerial.println("Y selected");selax='Y';lcd.setCursor(19,3);lcd.print("Y");}
-    if (key == '9') {MSerial.println("Z selected");selax='Z';lcd.setCursor(19,3);lcd.print("Z");}
-    if (key == '0') {MSerial.println("E selected");selax='E';lcd.setCursor(19,3);lcd.print("E");}
+    if (key == 'Y') {MSerial.println("Y selected");selax='Y';lcd.setCursor(19,3);lcd.print("Y");}
+    if (key == 'Z') {MSerial.println("Z selected");selax='Z';lcd.setCursor(19,3);lcd.print("Z");}
+    if (key == 'E') {MSerial.println("E selected");selax='E';lcd.setCursor(19,3);lcd.print("E");}
 
     if (key == 'C') {
       MSerial.println("home all");
@@ -1871,8 +1859,8 @@ char key = keypad.getKey();
       enquecommand("G92 X190\0"); 
     }
 
-    if (key == 'S') 
-    {MSerial.println("S");
+    if (key == 'H') 
+    {MSerial.println("Heater on/off");
     tset=!tset;
     if (tset) 
     {enquecommand("M104 S230\0");
