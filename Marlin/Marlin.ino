@@ -154,7 +154,7 @@ char keys[rows][cols] = {
 {'3','2','1','Z'},
 {'6','5','4','Y'},
 {'I','*','*','X'},
-{'*','*','S','E'}};
+{'*','*','H','E'}};
 
 
 byte rowPins[rows] = {KEY_R1,KEY_R2,KEY_R3,KEY_R4}; //connect to the row pinouts of the keypad
