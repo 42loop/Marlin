@@ -153,8 +153,8 @@ const byte cols = 4; //five columns
 char keys[rows][cols] = {
 {'3','2','1','Z'},
 {'6','5','4','Y'},
-{'I','*','*','X'},
-{'*','*','H','E'}};
+{'I','H','*','X'},
+{'P','T','*','E'}};
 
 
 byte rowPins[rows] = {KEY_R1,KEY_R2,KEY_R3,KEY_R4}; //connect to the row pinouts of the keypad
@@ -1855,14 +1855,14 @@ void manage_inactivity()
        if (key == 'Z') {MSerial.println("Z selected");selax='Z';lcd.setCursor(19,3);lcd.print("Z");}
        if (key == 'E') {MSerial.println("E selected");selax='E';lcd.setCursor(19,3);lcd.print("E");}
 
-       if (key == 'C') 
+       if (key == 'H') 
        {
          MSerial.println("home all");
          enquecommand("G28\0");
          enquecommand("G92 X190\0"); 
        }
 
-       if (key == 'H') 
+       if (key == 'T') 
        {
          MSerial.println("Heater on/off");
          if (degTargetHotend(0)>10) 
@@ -1884,6 +1884,11 @@ void manage_inactivity()
          enquecommand("G1 Z10.0 F200\0");
          enquecommand("G1 Y100.0 F4937\0");
          enquecommand("G90\0");
+       }
+       
+       if (key=='P')
+       {
+         
        }
     }
   
