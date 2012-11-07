@@ -163,7 +163,6 @@ Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, rows, cols );
 
 
 
-boolean tset=false;
 char selax='N';
 
 #endif
@@ -1861,14 +1860,14 @@ char key = keypad.getKey();
 
     if (key == 'H') 
     {MSerial.println("Heater on/off");
-    tset=!tset;
-    if (tset) 
-    {enquecommand("M104 S230\0");
-    enquecommand("M140 S60\0");
+        
+    if (degTargetHotend(0)>10) {  
+      enquecommand("M104 S000\0");
+      enquecommand("M140 S000\0");
     }
     else 
-    {enquecommand("M104 S000\0");
-    enquecommand("M140 S000\0");
+    {enquecommand("M104 S230\0");
+    enquecommand("M140 S060\0");
     }
   }
   
