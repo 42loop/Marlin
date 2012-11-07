@@ -1779,107 +1779,113 @@ void manage_inactivity()
   
 #ifdef KEYPAD  
     //check keypad
-char key = keypad.getKey();
+    char key = keypad.getKey();
 
-  if (key != NO_KEY){
- MSerial.print("key: ");MSerial.println(key);
-    if (key == '1') 
-   {MSerial.println("+1/+1");
-                 enquecommand("G91\0");
+    if (key != NO_KEY){
+       MSerial.print("key: ");MSerial.println(key);
+       if (key == '1') 
+       {
+         MSerial.println("+1/+1");
+         enquecommand("G91\0");
                  
- if (selax=='X') enquecommand("G1 X1 F4940\0");
- if (selax=='Y') enquecommand("G1 Y1 F4940\0");
- if (selax=='Z') enquecommand("G1 Z1 F200\0");
- if (selax=='E') enquecommand("G1 E1 F200 \0");
-                 enquecommand("G90\0");
-    }
+         if (selax=='X') enquecommand("G1 X1 F4940\0");
+         if (selax=='Y') enquecommand("G1 Y1 F4940\0");
+         if (selax=='Z') enquecommand("G1 Z1 F200\0");
+         if (selax=='E') enquecommand("G1 E1 F200 \0");
+         enquecommand("G90\0");
+       }
     
-        if (key == '2') 
-    {MSerial.println("+10/+5");
-                 enquecommand("G91\0");
- if (selax=='X') enquecommand("G1 X10 F4940\0");
- if (selax=='Y') enquecommand("G1 Y10 F4940\0");
- if (selax=='Z') enquecommand("G1 Z10 F200\0");
- if (selax=='E') enquecommand("G1 E5 F200  \0");
-                 enquecommand("G90\0");
-
-    }
-    if (key == '3') {
-      MSerial.println("+100/+10");
-    enquecommand("G91\0");
- if (selax=='X') enquecommand("G1 X100 F4940\0");
- if (selax=='Y') enquecommand("G1 Y100 F4940\0");
- if (selax=='Z') enquecommand("G1 Z50 F200\0");
- if (selax=='E') enquecommand("G1 E10 F200\0");
-                 enquecommand("G90\0");
-
-    }      
-    if (key == '4') {
-      MSerial.println("-1/-1");
-                 enquecommand("G91\0");
- if (selax=='X') enquecommand("G1 X-1 F4940\0");
- if (selax=='Y') enquecommand("G1 Y-1 F4940\0");
- if (selax=='Z') enquecommand("G1 Z-1 F200\0");
- if (selax=='E') enquecommand("G1 E-1 F200\0");
-                 enquecommand("G90\0");
-
-    }
+       if (key == '2') 
+       {
+         MSerial.println("+10/+5");
+         enquecommand("G91\0");
+         if (selax=='X') enquecommand("G1 X10 F4940\0");
+         if (selax=='Y') enquecommand("G1 Y10 F4940\0");
+         if (selax=='Z') enquecommand("G1 Z10 F200\0");
+         if (selax=='E') enquecommand("G1 E5 F200  \0");
+         enquecommand("G90\0");
+       }
     
+       if (key == '3') 
+       {
+         MSerial.println("+100/+10");
+         enquecommand("G91\0");
+         if (selax=='X') enquecommand("G1 X100 F4940\0");
+         if (selax=='Y') enquecommand("G1 Y100 F4940\0");
+         if (selax=='Z') enquecommand("G1 Z50 F200\0");
+         if (selax=='E') enquecommand("G1 E10 F200\0");
+         enquecommand("G90\0");
+       }      
     
-    if (key == '5'){
-      MSerial.println("-10/-5");
-                 enquecommand("G91\0");
- if (selax=='X') enquecommand("G1 X-10 F4940\0");
- if (selax=='Y') enquecommand("G1 Y-10 F4940\0");
- if (selax=='Z') enquecommand("G1 Z-10 F200\0");
- if (selax=='E') enquecommand("G1 E-5 F200\0");
-                 enquecommand("G90\0");
-    }
- if (key == '6') {
-   MSerial.println("-100/-10");
-       enquecommand("G91\0");
- if (selax=='X') enquecommand("G1 X-100 F4940\0");
- if (selax=='Y') enquecommand("G1 Y-100 F4940\0");
- if (selax=='Z') enquecommand("G1 Z-100 F200\0");
- if (selax=='E') enquecommand("G1 E-10 F200\0");
-                 enquecommand("G90\0");
-    }
-
-    
-    if (key == 'X') {MSerial.println("X selected");selax='X';lcd.setCursor(19, 3);lcd.print("X");}
-
-    if (key == 'Y') {MSerial.println("Y selected");selax='Y';lcd.setCursor(19,3);lcd.print("Y");}
-    if (key == 'Z') {MSerial.println("Z selected");selax='Z';lcd.setCursor(19,3);lcd.print("Z");}
-    if (key == 'E') {MSerial.println("E selected");selax='E';lcd.setCursor(19,3);lcd.print("E");}
-
-    if (key == 'C') {
-      MSerial.println("home all");
-      enquecommand("G28\0");
-      enquecommand("G92 X190\0"); 
-    }
-
-    if (key == 'H') 
-    {MSerial.println("Heater on/off");
+       if (key == '4') 
+       {
+         MSerial.println("-1/-1");
+         enquecommand("G91\0");
+         if (selax=='X') enquecommand("G1 X-1 F4940\0");
+         if (selax=='Y') enquecommand("G1 Y-1 F4940\0");
+         if (selax=='Z') enquecommand("G1 Z-1 F200\0");
+         if (selax=='E') enquecommand("G1 E-1 F200\0");
+         enquecommand("G90\0");
+       }
         
-    if (degTargetHotend(0)>10) {  
-      enquecommand("M104 S000\0");
-      enquecommand("M140 S000\0");
-    }
-    else 
-    {enquecommand("M104 S230\0");
-    enquecommand("M140 S060\0");
-    }
-  }
+       if (key == '5')
+       {
+         MSerial.println("-10/-5");
+         enquecommand("G91\0");
+         if (selax=='X') enquecommand("G1 X-10 F4940\0");
+         if (selax=='Y') enquecommand("G1 Y-10 F4940\0");
+         if (selax=='Z') enquecommand("G1 Z-10 F200\0");
+         if (selax=='E') enquecommand("G1 E-5 F200\0");
+         enquecommand("G90\0");
+       }
+       
+       if (key == '6') 
+       {
+         MSerial.println("-100/-10");
+         enquecommand("G91\0");
+         if (selax=='X') enquecommand("G1 X-100 F4940\0");
+         if (selax=='Y') enquecommand("G1 Y-100 F4940\0");
+         if (selax=='Z') enquecommand("G1 Z-100 F200\0");
+         if (selax=='E') enquecommand("G1 E-10 F200\0");
+         enquecommand("G90\0");
+       }
+    
+       if (key == 'X') {MSerial.println("X selected");selax='X';lcd.setCursor(19, 3);lcd.print("X");}
+       if (key == 'Y') {MSerial.println("Y selected");selax='Y';lcd.setCursor(19,3);lcd.print("Y");}
+       if (key == 'Z') {MSerial.println("Z selected");selax='Z';lcd.setCursor(19,3);lcd.print("Z");}
+       if (key == 'E') {MSerial.println("E selected");selax='E';lcd.setCursor(19,3);lcd.print("E");}
+
+       if (key == 'C') 
+       {
+         MSerial.println("home all");
+         enquecommand("G28\0");
+         enquecommand("G92 X190\0"); 
+       }
+
+       if (key == 'H') 
+       {
+         MSerial.println("Heater on/off");
+         if (degTargetHotend(0)>10) 
+         {  
+           enquecommand("M104 S000\0");
+           enquecommand("M140 S000\0");
+         }
+         else 
+         {
+           enquecommand("M104 S230\0");
+           enquecommand("M140 S060\0");
+         }
+       }
   
-  if (key=='I')
-  {MSerial.println("I");
-  
-enquecommand("G91\0");
-enquecommand("G1 Z10.0 F200\0");
-enquecommand("G1 Y100.0 F4937\0");
-enquecommand("G90\0");
-  }
-  }
+       if (key=='I')
+       {
+         MSerial.println("I");
+         enquecommand("G91\0");
+         enquecommand("G1 Z10.0 F200\0");
+         enquecommand("G1 Y100.0 F4937\0");
+         enquecommand("G90\0");
+       }
+    }
   
 #endif
   
