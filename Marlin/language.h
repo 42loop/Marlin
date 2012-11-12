@@ -26,7 +26,7 @@
 	#define FIRMWARE_URL "http://firmware.ultimaker.com"
 #else
 	#define MACHINE_NAME "Fab @ HfbK"
-	#define FIRMWARE_URL "https://github.com/ErikZalm/Marlin"
+	#define FIRMWARE_URL "https://github.com/42loop/Marlin"
 #endif
 
 #define STRINGIFY_(n) #n
