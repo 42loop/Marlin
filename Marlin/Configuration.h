@@ -6,7 +6,7 @@
 #define KEYPAD
 
 //define this for safety stuff, undefine for testing
-//#define SAFETY_FEATURES
+#define SAFETY_FEATURES
 
 // This configurtion file contains the basic settings.
 // Advanced settings can be found in Configuration_adv.h 
@@ -15,8 +15,8 @@
 //User specified version info of THIS file to display in [Pronterface, etc] terminal window during startup.
 //Implementation of an idea by Prof Braino to inform user that any changes made
 //to THIS file by the user have been successfully uploaded into firmware.
-#define STRING_VERSION_CONFIG_H "2012-05-02" //Personal revision number for changes to THIS file.
-#define STRING_CONFIG_H_AUTHOR "erik" //Who made the changes.
+#define STRING_VERSION_CONFIG_H "2012-11-13" //Personal revision number for changes to THIS file.
+#define STRING_CONFIG_H_AUTHOR "42loop" //Who made the changes.
 
 // SERIAL_PORT selects which serial port should be used for communication with the host.
 // This allows the connection of wireless adapters (for instance) to non-default port pins.
@@ -249,7 +249,7 @@ const bool Z_ENDSTOPS_INVERTING = false; // set to true to invert the logic of t
 // ENDSTOP SETTINGS:
 // Sets direction of endstops when homing; 1=MAX, -1=MIN
 #define X_HOME_DIR 1
-#define Y_HOME_DIR -1
+#define Y_HOME_DIR 1
 #define Z_HOME_DIR -1
 
 #ifdef SAFETY_FEATURES
@@ -279,8 +279,8 @@ const bool Z_ENDSTOPS_INVERTING = false; // set to true to invert the logic of t
 //#define BED_CENTER_AT_0_0  // If defined the center of the bed is defined as (0,0)
 
 //Manual homing switch locations:
-#define MANUAL_X_HOME_POS 0
-#define MANUAL_Y_HOME_POS 0
+#define MANUAL_X_HOME_POS 200
+#define MANUAL_Y_HOME_POS 200
 #define MANUAL_Z_HOME_POS 0
 
 //// MOVEMENT SETTINGS
