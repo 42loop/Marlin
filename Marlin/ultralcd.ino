@@ -530,7 +530,7 @@ void MainMenu::showStatus()
   force_lcd_update=false;
 }
 
-enum {ItemP_exit, ItemP_autostart,ItemP_disstep,ItemP_home, ItemP_origin, ItemP_preheat_pla, ItemP_preheat_abs, ItemP_cooldown,/*ItemP_extrude,*/ItemP_move};
+enum {ItemP_exit, ItemP_preheat_abs, ItemP_cooldown, ItemP_zoffset,ItemP_home,ItemP_autostart,ItemP_disstep,ItemP_origin, ItemP_preheat_pla,  /*ItemP_extrude,*/ItemP_move};
 
 //any action must not contain a ',' character anywhere, or this breaks:
 #define MENUITEM(repaint_action, click_action) \
@@ -552,6 +552,42 @@ void MainMenu::showPrepare()
     case ItemP_exit:
       MENUITEM(  lcdprintPGM(MSG_MAIN)  ,  BLOCK;status=Main_Menu;beepshort(); ) ;
       break;
+
+   case ItemP_zoffset:
+      if(force_lcd_update)
+         {
+           lcd.setCursor(0,line);lcd.print(MSG_ZOFFSET);
+          lcd.setCursor(14,line);lcd.print(ftostr32(add_homeing[Z_AXIS]));
+         }
+         if((activeline!=line) )
+          break;
+
+         if(CLICKED) 
+           {
+            linechanging=!linechanging;
+            if(linechanging)
+            {
+      		beepshort();
+      		encoderpos=add_homeing[Z_AXIS]*100;
+            }
+            else
+            {
+               add_homeing[Z_AXIS] = add_homeing[Z_AXIS] /100;
+               EEPROM_StoreSettings();
+               beep();
+            }
+            BLOCK;
+           }
+           
+         if(linechanging)
+         {
+            add_homeing[Z_AXIS] = encoderpos;
+            lcd.setCursor(14,line);lcd.print(ftostr32(add_homeing[Z_AXIS]/100));      
+         }
+
+
+      break;
+    
     case ItemP_autostart:
       MENUITEM(  lcdprintPGM(MSG_AUTOSTART)  ,  BLOCK;
 #ifdef SDSUPPORT
