@@ -1845,7 +1845,7 @@ void manage_inactivity()
          enquecommand("G91\0");
          if (selax=='X') enquecommand("G1 X-100 F4940\0");
          if (selax=='Y') enquecommand("G1 Y-100 F4940\0");
-         if (selax=='Z') enquecommand("G1 Z-100 F200\0");
+         if (selax=='Z') enquecommand("G1 Z-50 F200\0");
          if (selax=='E') enquecommand("G1 E-10 F200\0");
          enquecommand("G90\0");
        }

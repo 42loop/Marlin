@@ -6,7 +6,7 @@
 #define KEYPAD
 
 //define this for safety stuff, undefine for testing
-//#define SAFETY_FEATURES
+#define SAFETY_FEATURES
 
 // This configurtion file contains the basic settings.
 // Advanced settings can be found in Configuration_adv.h 
