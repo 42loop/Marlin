@@ -557,7 +557,7 @@ void MainMenu::showPrepare()
       if(force_lcd_update)
          {
            lcd.setCursor(0,line);lcd.print(MSG_ZOFFSET);
-          lcd.setCursor(14,line);lcd.print(ftostr32(add_homeing[Z_AXIS]));
+          lcd.setCursor(14,line);lcd.print(ftostr32(-add_homeing[Z_AXIS]));
          }
          if((activeline!=line) )
           break;
@@ -582,7 +582,7 @@ void MainMenu::showPrepare()
          if(linechanging)
          {
             add_homeing[Z_AXIS] = encoderpos;
-            lcd.setCursor(14,line);lcd.print(ftostr32(add_homeing[Z_AXIS]/100));      
+            lcd.setCursor(14,line);lcd.print(ftostr32(-add_homeing[Z_AXIS]/100));      
          }
 
 
