@@ -263,9 +263,9 @@ const bool Z_ENDSTOPS_INVERTING = false; // set to true to invert the logic of t
 
 
 // Travel limits after homing
-#define X_MAX_POS 200
+#define X_MAX_POS 190
 #define X_MIN_POS 0
-#define Y_MAX_POS 200
+#define Y_MAX_POS 190
 #define Y_MIN_POS 0
 #define Z_MAX_POS 160
 #define Z_MIN_POS 0
@@ -279,8 +279,8 @@ const bool Z_ENDSTOPS_INVERTING = false; // set to true to invert the logic of t
 //#define BED_CENTER_AT_0_0  // If defined the center of the bed is defined as (0,0)
 
 //Manual homing switch locations:
-#define MANUAL_X_HOME_POS 200
-#define MANUAL_Y_HOME_POS 200
+#define MANUAL_X_HOME_POS 190
+#define MANUAL_Y_HOME_POS 190
 #define MANUAL_Z_HOME_POS 0
 
 //// MOVEMENT SETTINGS
