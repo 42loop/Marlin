@@ -1873,8 +1873,17 @@ void manage_inactivity()
          }
          else 
          {
-           enquecommand("M104 S230\0");
-           enquecommand("M140 S060\0");
+           String temp = "M104 S"+String(ABS_PREHEAT_HOTEND_TEMP)+"\0";
+           char buf[12];
+           temp.toCharArray(buf,12); 
+           enquecommand(buf);
+//           enquecommand("M104 S230\0");
+           temp = "M140 S"+String(ABS_PREHEAT_HPB_TEMP)+"\0";
+           temp.toCharArray(buf,12); 
+           enquecommand(buf);
+
+
+//           enquecommand("M140 S060\0");
          }
        }
   
